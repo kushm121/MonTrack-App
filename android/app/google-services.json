@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "165213282632",
+    "project_id": "montrack-4cefc",
+    "storage_bucket": "montrack-4cefc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165213282632:android:81247e7484c08411a8537d",
+        "android_client_info": {
+          "package_name": "com.themontracker.montrack_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9qRCLZVx9ns2I8lGLHaeQshSqDOMo7Z4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
