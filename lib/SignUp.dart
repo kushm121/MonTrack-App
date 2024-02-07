@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'landing.dart';
 import 'Login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -10,10 +14,14 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String errorMessage = '';
   late TextEditingController _usernameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
+  String email = '';
+  String password = '';
+  String username = '';
 
   bool _isUsernameTyped = false;
   bool _isEmailTyped = false;
@@ -103,6 +111,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         onChanged: (value) {
                           setState(() {
+                            username = value;
                             _isUsernameTyped = value.isNotEmpty;
                           });
                         },
@@ -131,6 +140,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         onChanged: (value) {
                           setState(() {
+                            email = value;
                             _isEmailTyped = value.isNotEmpty;
                           });
                         },
@@ -159,6 +169,7 @@ class _SignUpState extends State<SignUp> {
                         ),
                         onChanged: (value) {
                           setState(() {
+                            password = value;
                             _isPasswordTyped = value.isNotEmpty;
                           });
                         },
@@ -211,12 +222,8 @@ class _SignUpState extends State<SignUp> {
                         ],
                       ),
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUp()),
-                          );
+                        onPressed: () async {
+                          signUp(email, password, username);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
@@ -277,5 +284,60 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  void signUp(String email, String password, String username) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseFirestore.instance
+          .collection("newUsers")
+          .doc(userCredential.user!.email)
+          .set({'email': email, 'username': username});
+
+      // Fluttertoast.showToast(msg: 'Verification email sent!');
+    } catch (e) {
+      String errorcode = '';
+      errorcode = e.toString();
+      // print(errorcode);
+      switch (errorcode) {
+        case "[firebase_auth/invalid-email] The email address is badly formatted.":
+          errorMessage = "Your email address appears to be malformed.";
+          break;
+        case "[firebase_auth/email-already-in-use] The email address is already in use by another account.":
+          errorMessage =
+              "The email address is already associated with an existing account.";
+          break;
+        case "[firebase_auth/weak-password] Password should be at least 6 characters":
+          errorMessage =
+              "The password is too weak. It should atleast be 6 characters.";
+          break;
+        case "[firebase_auth/operation-not-allowed] Password sign-in is disabled for this project.":
+          errorMessage = "Password sign-in is currently disabled.";
+          break;
+        case '[firebase_auth/unknown] Given String is empty or null':
+          errorMessage = 'Empty fields! Enter some input to continue';
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        case "too-many-requests":
+          errorMessage = "Too many requests. Please try again later.";
+          break;
+        case "operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined error occurred.";
+      }
+      // Fluttertoast.showToast(msg: errorMessage!);
+      errorMessage = '';
+    }
   }
 }
