@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'SignUp.dart';
 import 'Login.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -162,6 +163,48 @@ class _LandingPageState extends State<LandingPage> {
                                 ),
                               ),
                             ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 70,
+                      ),
+                      Text(
+                        'Follow Us',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Circular',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.instagram,
+                            size: 50,
+                            color: Color.fromARGB(255, 178, 89, 252),
+                          ),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          Icon(
+                            FontAwesomeIcons.twitter,
+                            size: 50,
+                            color: Color.fromARGB(255, 178, 89, 252),
+                          ),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          Icon(
+                            FontAwesomeIcons.facebook,
+                            size: 50,
+                            color: Color.fromARGB(255, 178, 89, 252),
                           ),
                         ],
                       )

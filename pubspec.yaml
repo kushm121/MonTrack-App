@@ -41,7 +41,8 @@ dependencies:
   modal_progress_hud_nsn: ^0.3.0
   modal_progress_hud_alt: ^1.0.0
   fluttertoast: ^8.2.4
-  # fluttertoast: ^8.2.4
+  font_awesome_flutter: ^9.2.0
+  
 
 dev_dependencies:
   flutter_test:
