@@ -18,8 +18,9 @@ class _LandingPageState extends State<LandingPage> {
         home: Scaffold(
           body: Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 15, 11, 33),
-            ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/pbg.png"),
+                    fit: BoxFit.cover)),
             child: ListView(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
@@ -40,9 +41,18 @@ class _LandingPageState extends State<LandingPage> {
                                 fit: BoxFit.cover),
                           )),
                       SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
-                      Text("A FINANCIAL TRACKING SOLUTION",
+                      Text("THE COMPLETE WALLET",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 178, 89, 252),
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 15)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Track your expenses effortlessly",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -51,102 +61,110 @@ class _LandingPageState extends State<LandingPage> {
                       SizedBox(
                         height: 100,
                       ),
-                      Container(
-                          height: 220,
-                          width: 370,
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 35, 28, 69),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 30,
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            height: 50,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 66, 1, 130),
+                                  Color.fromARGB(255, 102, 0, 192)
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
                               ),
-                              Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 114, 105, 255),
-                                  borderRadius: BorderRadius.circular(100),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.25),
-                                      blurRadius: 4,
-                                      offset: Offset(
-                                          0, 4), // changes position of shadow
-                                    ),
-                                  ],
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4,
+                                  offset: Offset(
+                                      0, 4), // changes position of shadow
                                 ),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const SignUp()),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
-                                    elevation: 0,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Sign Up',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Circular',
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              ],
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const SignUp()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
                               ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              Container(
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 114, 105, 255),
-                                  borderRadius: BorderRadius.circular(100),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.25),
-                                      blurRadius: 4,
-                                      offset: Offset(
-                                          0, 4), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Login()),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
-                                    elevation: 0,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Login',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: 'Circular',
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 22,
-                                      ),
-                                    ),
+                              child: Center(
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 22,
                                   ),
                                 ),
                               ),
-                            ],
-                          ))
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Container(
+                            height: 50,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 66, 1, 130),
+                                  Color.fromARGB(255, 102, 0, 192)
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.25),
+                                  blurRadius: 4,
+                                  offset: Offset(
+                                      0, 4), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Login()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                elevation: 0,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 22,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 )

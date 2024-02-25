@@ -17,8 +17,9 @@ class _dashboardState extends State<dashboard> {
       home: Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 15, 11, 33),
-          ),
+              image: DecorationImage(
+                  image: AssetImage("assets/images/pbg.png"),
+                  fit: BoxFit.cover)),
           child: ListView(
             physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics(),

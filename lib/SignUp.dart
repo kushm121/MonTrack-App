@@ -4,7 +4,7 @@ import 'Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -53,8 +53,9 @@ class _SignUpState extends State<SignUp> {
       home: Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 15, 11, 33),
-          ),
+              image: DecorationImage(
+                  image: AssetImage("assets/images/pbg.png"),
+                  fit: BoxFit.cover)),
           child: ListView(
             physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics(),
@@ -211,8 +212,15 @@ class _SignUpState extends State<SignUp> {
                       height: 50,
                       width: 200,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 114, 105, 255),
-                        borderRadius: BorderRadius.circular(100),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 66, 1, 130),
+                            Color.fromARGB(255, 102, 0, 192)
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(15),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.25),
@@ -267,7 +275,7 @@ class _SignUpState extends State<SignUp> {
                           child: Text(
                             'LOGIN',
                             style: TextStyle(
-                              color: Color.fromARGB(255, 114, 105, 255),
+                              color: Color.fromARGB(255, 178, 89, 252),
                               fontFamily: 'Circular',
                               fontWeight: FontWeight.w900,
                               fontSize: 18,
@@ -295,7 +303,15 @@ class _SignUpState extends State<SignUp> {
           .doc(userCredential.user!.email)
           .set({'email': email, 'username': username});
 
-      // Fluttertoast.showToast(msg: 'Verification email sent!');
+      Fluttertoast.showToast(msg: 'Sign up successful!');
+
+      // Update text controllers to show hints after successful signup
+      setState(() {
+        _usernameController.text = 'Username';
+        _emailController.text = 'Email';
+        _passwordController.text = 'Password';
+        _confirmPasswordController.text = 'Confirm Password';
+      });
     } catch (e) {
       String errorcode = '';
       errorcode = e.toString();
