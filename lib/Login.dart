@@ -101,7 +101,7 @@ class _LoginState extends State<Login> {
                           controller: _usernameController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            hintText: _isUsernameTyped ? '' : 'Username',
+                            hintText: _isUsernameTyped ? '' : 'Email',
                             hintStyle: TextStyle(color: Colors.white),
                             border: InputBorder.none,
                           ),
