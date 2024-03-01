@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
 
   bool _isUsernameTyped = false;
   bool _isPasswordTyped = false;
+  bool _isPasswordVisible = false;
   bool showSpinner = false;
   String email = '';
   String errorMessage = '';
@@ -123,19 +124,40 @@ class _LoginState extends State<Login> {
                             color: Colors.white, // Outline color
                           ),
                         ),
-                        child: TextField(
-                          controller: _passwordController,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            hintText: _isPasswordTyped ? '' : 'Password',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: InputBorder.none,
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
+                        child: Stack(
+                          alignment: Alignment.centerRight,
+                          children: [
+                            TextField(
+                              controller: _passwordController,
+                              style: TextStyle(color: Colors.white),
+                              obscureText:
+                                  !_isPasswordVisible, // Hide or show the password based on _isPasswordVisible
+                              decoration: InputDecoration(
+                                hintText: _isPasswordTyped ? '' : 'Password',
+                                hintStyle: TextStyle(color: Colors.white),
+                                border: InputBorder.none,
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  password = value;
+                                });
+                              },
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible =
+                                      !_isPasswordVisible; // Toggle password visibility
+                                });
+                              },
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(
@@ -213,7 +235,7 @@ class _LoginState extends State<Login> {
                                   break;
                               }
                             }
-                            Fluttertoast.showToast(msg: errorMessage!);
+                            Fluttertoast.showToast(msg: errorMessage);
                             setState(() {
                               showSpinner = false;
                             });

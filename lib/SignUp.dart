@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'landing.dart';
 import 'Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +26,8 @@ class _SignUpState extends State<SignUp> {
   bool _isEmailTyped = false;
   bool _isPasswordTyped = false;
   bool _isConfirmPasswordTyped = false;
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
   @override
   void initState() {
@@ -160,20 +161,41 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.white, // Outline color
                         ),
                       ),
-                      child: TextField(
-                        controller: _passwordController,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          hintText: _isPasswordTyped ? '' : 'Password',
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: InputBorder.none,
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            password = value;
-                            _isPasswordTyped = value.isNotEmpty;
-                          });
-                        },
+                      child: Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          TextField(
+                            controller: _passwordController,
+                            style: TextStyle(color: Colors.white),
+                            obscureText:
+                                !_isPasswordVisible, // Hide or show the password based on _isPasswordVisible
+                            decoration: InputDecoration(
+                              hintText: _isPasswordTyped ? '' : 'Password',
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: InputBorder.none,
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                password = value;
+                                _isPasswordTyped = value.isNotEmpty;
+                              });
+                            },
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible =
+                                    !_isPasswordVisible; // Toggle password visibility
+                              });
+                            },
+                            icon: Icon(
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
 
@@ -189,20 +211,42 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.white, // Outline color
                         ),
                       ),
-                      child: TextField(
-                        controller: _confirmPasswordController,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          hintText:
-                              _isConfirmPasswordTyped ? '' : 'Confirm Password',
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: InputBorder.none,
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            _isConfirmPasswordTyped = value.isNotEmpty;
-                          });
-                        },
+                      child: Stack(
+                        alignment: Alignment.centerRight,
+                        children: [
+                          TextField(
+                            controller: _confirmPasswordController,
+                            style: TextStyle(color: Colors.white),
+                            obscureText:
+                                !_isConfirmPasswordVisible, // Hide or show the confirm password based on _isConfirmPasswordVisible
+                            decoration: InputDecoration(
+                              hintText: _isConfirmPasswordTyped
+                                  ? ''
+                                  : 'Confirm Password',
+                              hintStyle: TextStyle(color: Colors.white),
+                              border: InputBorder.none,
+                            ),
+                            onChanged: (value) {
+                              setState(() {
+                                _isConfirmPasswordTyped = value.isNotEmpty;
+                              });
+                            },
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _isConfirmPasswordVisible =
+                                    !_isConfirmPasswordVisible; // Toggle confirm password visibility
+                              });
+                            },
+                            icon: Icon(
+                              _isConfirmPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
