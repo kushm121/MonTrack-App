@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:montrack_app/bottom_navigation.dart';
+import 'package:montrack_app/dashboard.dart';
 import 'landing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: LandingPage(),
+      home: Bottom(),
     );
   }
 }

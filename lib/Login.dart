@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montrack_app/dashboard.dart';
+import 'bottom_navigation.dart';
 import 'landing.dart';
 import 'SignUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -198,7 +199,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const dashboard()),
+                                    builder: (context) => const Bottom()), //bottom page will be main
                               );
                               Fluttertoast.showToast(
                                   msg: 'Successfully Logged In!');
