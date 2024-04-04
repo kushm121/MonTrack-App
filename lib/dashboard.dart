@@ -61,7 +61,7 @@ class _dashboardState extends State<dashboard> {
               image: AssetImage("assets/images/pbg.png"), fit: BoxFit.cover),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
           child: Column(
             children: [
               Row(
@@ -73,15 +73,15 @@ class _dashboardState extends State<dashboard> {
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xFF6200EA)
-                        ),
+                            shape: BoxShape.circle, color: Color(0xFF6200EA)),
                         child: Icon(
                           Icons.account_circle,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(width: 8,),
+                      const SizedBox(
+                        width: 8,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -90,12 +90,10 @@ class _dashboardState extends State<dashboard> {
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.grey
-                            ),
+                                color: Colors.grey),
                           ),
                           FutureBuilder<String?>(
-                            future:
-                            getCurrentUsername(), // Fetch the username
+                            future: getCurrentUsername(), // Fetch the username
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -123,36 +121,32 @@ class _dashboardState extends State<dashboard> {
                     ],
                   ),
                   IconButton(
-                    onPressed: (){},
-                    icon: Icon(
-                      CupertinoIcons.settings,
-                      color: Colors.white,
-                    )
-                  )
+                      onPressed: () {},
+                      icon: Icon(
+                        CupertinoIcons.settings,
+                        color: Colors.white,
+                      ))
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width/2,
+                height: MediaQuery.of(context).size.width / 2,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Color(0xFFC54B8C),
-                          Color(0xFF8A2BE2),
-                          Color(0xFF4A148C),
-                        ],
-                        transform: const GradientRotation(pi/4)
-                    ),
+                    gradient: LinearGradient(colors: [
+                      Color(0xFFC54B8C),
+                      Color(0xFF8A2BE2),
+                      Color(0xFF4A148C),
+                    ], transform: const GradientRotation(pi / 4)),
                     borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
                           blurRadius: 4,
                           color: Colors.deepPurpleAccent,
-                          offset: const Offset(5,5)
-                      )
-                    ]
-                ),
+                          offset: const Offset(5, 5))
+                    ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -161,21 +155,24 @@ class _dashboardState extends State<dashboard> {
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
-                          fontWeight: FontWeight.w400
-                      ),
+                          fontWeight: FontWeight.w400),
                     ),
-                    SizedBox(height: 12,),
+                    SizedBox(
+                      height: 12,
+                    ),
                     Text(
                       "45000.00",
                       style: TextStyle(
                           fontSize: 40,
                           color: Colors.white,
-                          fontWeight: FontWeight.bold
-                      ),
+                          fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(width: 12,),
+                    const SizedBox(
+                      width: 12,
+                    ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -186,8 +183,7 @@ class _dashboardState extends State<dashboard> {
                                 height: 25,
                                 decoration: BoxDecoration(
                                     color: Colors.white30,
-                                    shape: BoxShape.circle
-                                ),
+                                    shape: BoxShape.circle),
                                 child: Center(
                                   child: Icon(
                                     CupertinoIcons.arrow_down,
@@ -196,7 +192,9 @@ class _dashboardState extends State<dashboard> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 8,),
+                              const SizedBox(
+                                width: 8,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -205,16 +203,14 @@ class _dashboardState extends State<dashboard> {
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w400
-                                    ),
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   Text(
                                     "2300.00",
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w600
-                                    ),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               )
@@ -227,8 +223,7 @@ class _dashboardState extends State<dashboard> {
                                 height: 25,
                                 decoration: BoxDecoration(
                                     color: Colors.white30,
-                                    shape: BoxShape.circle
-                                ),
+                                    shape: BoxShape.circle),
                                 child: Center(
                                   child: Icon(
                                     CupertinoIcons.arrow_up,
@@ -237,7 +232,9 @@ class _dashboardState extends State<dashboard> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 8,),
+                              const SizedBox(
+                                width: 8,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -246,16 +243,14 @@ class _dashboardState extends State<dashboard> {
                                     style: TextStyle(
                                         fontSize: 14,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w400
-                                    ),
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   Text(
                                     "2300.00",
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w600
-                                    ),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               )
@@ -267,7 +262,9 @@ class _dashboardState extends State<dashboard> {
                   ],
                 ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -276,34 +273,33 @@ class _dashboardState extends State<dashboard> {
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: () {},
                     child: Text(
                       "View All",
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[100],
-                          fontWeight: FontWeight.w400
-                      ),
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Expanded(
                 child: ListView.builder(
                     itemCount: transactionData.length,
-                    itemBuilder: (context, int i){
+                    itemBuilder: (context, int i) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Color(0xFF6200EA),
-                              borderRadius: BorderRadius.circular(12)
-                          ),
+                              color: Color.fromARGB(75, 98, 0, 234),
+                              borderRadius: BorderRadius.circular(12)),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
@@ -318,21 +314,22 @@ class _dashboardState extends State<dashboard> {
                                           width: 50,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                              color: transactionData[i]['color'],
-                                              shape: BoxShape.circle
-                                          ),
+                                              color: transactionData[i]
+                                                  ['color'],
+                                              shape: BoxShape.circle),
                                         ),
                                         transactionData[i]['icon']
                                       ],
                                     ),
-                                    SizedBox(width: 12,),
+                                    SizedBox(
+                                      width: 12,
+                                    ),
                                     Text(
                                       transactionData[i]['name'],
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w500
-                                      ),
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 ),
@@ -344,16 +341,14 @@ class _dashboardState extends State<dashboard> {
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w500
-                                      ),
+                                          fontWeight: FontWeight.w500),
                                     ),
                                     Text(
                                       transactionData[i]['date'],
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.grey,
-                                          fontWeight: FontWeight.w500
-                                      ),
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 )
@@ -362,8 +357,7 @@ class _dashboardState extends State<dashboard> {
                           ),
                         ),
                       );
-                    }
-                ),
+                    }),
               )
             ],
           ),
@@ -372,5 +366,3 @@ class _dashboardState extends State<dashboard> {
     );
   }
 }
-
-
