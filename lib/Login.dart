@@ -199,7 +199,8 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Bottom()), //bottom page will be main
+                                    builder: (context) =>
+                                        const Bottom()), //bottom page will be main
                               );
                               Fluttertoast.showToast(
                                   msg: 'Successfully Logged In!');

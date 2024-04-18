@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:montrack_app/dashboard.dart';
 import 'package:montrack_app/landing.dart';
+import 'package:montrack_app/Profile.dart';
 
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
@@ -9,20 +10,20 @@ class Bottom extends StatefulWidget {
   State<Bottom> createState() => _BottomState();
 }
 
-class _BottomState extends State<Bottom>{
+class _BottomState extends State<Bottom> {
   int index_color = 0;
   List Screen = [
     const dashboard(),
-    const LandingPage(),//will be changed when more pages are there
+    const LandingPage(), //will be changed when more pages are there
     const dashboard(),
-    const dashboard(),
+    const Profile(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Screen[index_color],
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           // Navigator.push(
           //   context,
           //   MaterialPageRoute<void>(
@@ -39,7 +40,7 @@ class _BottomState extends State<Bottom>{
           color: Colors.black,
           shape: const CircularNotchedRectangle(),
           child: Padding(
-            padding: const EdgeInsets.only(top:7.5, bottom: 7.5),
+            padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -50,13 +51,13 @@ class _BottomState extends State<Bottom>{
                 buildIconButton(Icons.person_outline, 3),
               ],
             ),
-          )
-      ),
+          )),
     );
   }
-  IconButton buildIconButton(IconData icon, int index){
+
+  IconButton buildIconButton(IconData icon, int index) {
     return IconButton(
-      onPressed: (){
+      onPressed: () {
         setState(() {
           index_color = index;
         });
@@ -69,4 +70,3 @@ class _BottomState extends State<Bottom>{
     );
   }
 }
-
