@@ -1,35 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montrack_app/dashboard.dart';
-import 'package:montrack_app/landing.dart';
-import 'package:montrack_app/Profile.dart';
+import 'package:montrack_app/stats/charts.dart';
+import 'addexpense/addexpense.dart';
+import 'addexpense/bloc/create_categorybloc/create_category_bloc.dart';
+import 'addexpense/bloc/create_expense_bloc/create_expense_bloc.dart';
+import 'addexpense/bloc/get_category_bloc/get_categories_bloc.dart';
+import 'package:expense_repo/expense_repository.dart';
+
+import 'bloc/get_expenses_bloc/get_expense_bloc.dart';
+
 
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
-
   @override
   State<Bottom> createState() => _BottomState();
 }
 
-class _BottomState extends State<Bottom> {
+class _BottomState extends State<Bottom>{
   int index_color = 0;
   List Screen = [
     const dashboard(),
-    const LandingPage(), //will be changed when more pages are there
+    const StatsPage(),
+    BlocProvider(
+        create: (context) =>GetExpensesBloc(FirebaseExpenseRepo())..add(GetExpenses()),
+        child: const dashboard()
+    ),
     const dashboard(),
-    const Profile(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Screen[index_color],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute<void>(
-          //       builder: (BuildContext context)=> const AddExpense()
-          //   ),
-          // );
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context)=> MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => CreateCategoryBloc(FirebaseExpenseRepo()),
+                  ),
+                  BlocProvider(
+                    create: (context) => GetCategoriesBloc(FirebaseExpenseRepo())..add(GetCategories()),
+                  ),
+                  BlocProvider(
+                    create: (context) => CreateExpenseBloc(FirebaseExpenseRepo()),
+                  ),
+                ],
+                child: const AddExpense(),
+              ),
+            ),
+          );
         },
         backgroundColor: Colors.blue,
         shape: const CircleBorder(),
@@ -40,7 +63,7 @@ class _BottomState extends State<Bottom> {
           color: Colors.black,
           shape: const CircularNotchedRectangle(),
           child: Padding(
-            padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
+            padding: const EdgeInsets.only(top:7.5, bottom: 7.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -51,13 +74,13 @@ class _BottomState extends State<Bottom> {
                 buildIconButton(Icons.person_outline, 3),
               ],
             ),
-          )),
+          )
+      ),
     );
   }
-
-  IconButton buildIconButton(IconData icon, int index) {
+  IconButton buildIconButton(IconData icon, int index){
     return IconButton(
-      onPressed: () {
+      onPressed: (){
         setState(() {
           index_color = index;
         });
@@ -70,3 +93,4 @@ class _BottomState extends State<Bottom> {
     );
   }
 }
+

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'data/data.dart';
 import 'landing.dart';
 import 'SignUp.dart';
-import 'dart:ui';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -121,16 +120,15 @@ class _dashboardState extends State<dashboard> {
                     ],
                   ),
                   IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        CupertinoIcons.settings,
-                        color: Colors.white,
-                      ))
+                    onPressed: () {},
+                    icon: Icon(
+                      CupertinoIcons.settings,
+                      color: Colors.white,
+                    )
+                  )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20,),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width / 2,
@@ -314,8 +312,7 @@ class _dashboardState extends State<dashboard> {
                                           width: 50,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                              color: transactionData[i]
-                                                  ['color'],
+                                              color: transactionData[i]['color'],
                                               shape: BoxShape.circle),
                                         ),
                                         transactionData[i]['icon']
