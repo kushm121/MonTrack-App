@@ -137,7 +137,7 @@ Future getcategorycreation(BuildContext context){
                                         borderRadius: BorderRadius.circular(12),
                                         image: DecorationImage(
                                             image: AssetImage(
-                                              'images/${myCategoriesIcons[i]}.png',
+                                              'assets/images/${myCategoriesIcons[i]}.png',
                                             )
                                         )
                                     ),

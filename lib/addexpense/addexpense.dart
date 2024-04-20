@@ -187,7 +187,7 @@ class _AddExpenseState extends State<AddExpense> {
                                     });
                                   },
                                   leading: Image.asset(
-                                    'images/${state.categories[i].icon}.png',
+                                    'assets/images/${state.categories[i].icon}.png',
                                     scale: 2,
                                   ),
                                   title: Text(state.categories[i].name),
