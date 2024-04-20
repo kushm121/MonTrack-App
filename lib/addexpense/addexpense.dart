@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:expense_repo/expense_repository.dart';
 import 'package:uuid/uuid.dart';
-
 import 'bloc/create_expense_bloc/create_expense_bloc.dart';
 import 'bloc/get_category_bloc/get_categories_bloc.dart';
 import 'category_creation.dart';
@@ -33,7 +32,8 @@ class _AddExpenseState extends State<AddExpense> {
     "pet",
     "shopping",
     "tech",
-    "travel"
+    "travel",
+    "income"
   ];
 
 
@@ -139,7 +139,7 @@ class _AddExpenseState extends State<AddExpense> {
                               size: 30,
                               color: Colors.grey,
                             ):Image.asset(
-                              'images/${expense.category.icon}.png',
+                              'assets/images/${expense.category.icon}.png',
                               scale: 2,
                             ),
                             suffixIcon: IconButton(

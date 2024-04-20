@@ -20,7 +20,8 @@ Future getcategorycreation(BuildContext context){
     "pet",
     "shopping",
     "tech",
-    "travel"
+    "travel",
+    "income"
   ];
   return showDialog(
       context: context,
