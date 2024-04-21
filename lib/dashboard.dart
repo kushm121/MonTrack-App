@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'addexpense/expense_methods.dart';
+import 'AllTransactions.dart';
+import 'landing.dart';
 
 class dashboard extends StatefulWidget {
   const dashboard({Key? key});
@@ -12,7 +14,6 @@ class dashboard extends StatefulWidget {
   State<dashboard> createState() => _dashboardState();
 }
 
-
 class _dashboardState extends State<dashboard> {
   String username = '';
   @override
@@ -20,21 +21,19 @@ class _dashboardState extends State<dashboard> {
     return FutureBuilder<String?>(
         future: getCurrentUsername(),
         builder: (BuildContext context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting){
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
             );
-          }
-          else if(snapshot.hasError){
+          } else if (snapshot.hasError) {
             return Scaffold(
               body: Center(
                 child: Text('Error: ${snapshot.error}'),
               ),
             );
-          }
-          else{
+          } else {
             String username = snapshot.data!;
             return SafeArea(
               child: Container(
@@ -92,8 +91,7 @@ class _dashboardState extends State<dashboard> {
                                         // Display the fetched username
                                         username = snapshot.data!;
                                         return Text(
-                                          snapshot.data ??
-                                              'N/A',
+                                          snapshot.data ?? 'N/A',
                                           // Display 'N/A' if username is null
                                           style: TextStyle(
                                             color: Color.fromARGB(
@@ -109,25 +107,27 @@ class _dashboardState extends State<dashboard> {
                               ),
                             ],
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                CupertinoIcons.settings,
-                                color: Colors.white,
-                              )
-                          )
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LandingPage()),
+                                );
+                              },
+                              child: Text("Logout",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 178, 89, 252),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14))),
                         ],
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 2,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width / 2,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(colors: [
                               Color(0xFFC54B8C),
@@ -155,10 +155,13 @@ class _dashboardState extends State<dashboard> {
                               height: 12,
                             ),
                             FutureBuilder<int>(
-                              future: getTotalBalance(username), // Pass the user ID here
+                              future: getTotalBalance(
+                                  username), // Pass the user ID here
                               builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return const CircularProgressIndicator(color: Colors.white);
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const CircularProgressIndicator(
+                                      color: Colors.white);
                                 } else if (snapshot.hasError) {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
@@ -187,7 +190,8 @@ class _dashboardState extends State<dashboard> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
@@ -209,8 +213,8 @@ class _dashboardState extends State<dashboard> {
                                         width: 8,
                                       ),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Income",
@@ -220,12 +224,17 @@ class _dashboardState extends State<dashboard> {
                                                 fontWeight: FontWeight.w400),
                                           ),
                                           FutureBuilder<int>(
-                                            future: getTotalAmountInCategory("Income",username), // Pass the user ID here
+                                            future: getTotalAmountInCategory(
+                                                "Income",
+                                                username), // Pass the user ID here
                                             builder: (context, snapshot) {
-                                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                                return const CircularProgressIndicator(color: Colors.white);
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return const CircularProgressIndicator(
+                                                    color: Colors.white);
                                               } else if (snapshot.hasError) {
-                                                return Text('Error: ${snapshot.error}');
+                                                return Text(
+                                                    'Error: ${snapshot.error}');
                                               } else {
                                                 return Text(
                                                   '\$${snapshot.data?.toStringAsFixed(2)}',
@@ -269,8 +278,8 @@ class _dashboardState extends State<dashboard> {
                                         width: 8,
                                       ),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Expenses",
@@ -280,12 +289,16 @@ class _dashboardState extends State<dashboard> {
                                                 fontWeight: FontWeight.w400),
                                           ),
                                           FutureBuilder<int>(
-                                            future: getTotalAmountExceptIncome(username), // Pass the user ID here
+                                            future: getTotalAmountExceptIncome(
+                                                username), // Pass the user ID here
                                             builder: (context, snapshot) {
-                                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                                return const CircularProgressIndicator(color: Colors.white);
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return const CircularProgressIndicator(
+                                                    color: Colors.white);
                                               } else if (snapshot.hasError) {
-                                                return Text('Error: ${snapshot.error}');
+                                                return Text(
+                                                    'Error: ${snapshot.error}');
                                               } else {
                                                 return Text(
                                                   '\$${snapshot.data?.toStringAsFixed(2)}',
@@ -322,7 +335,15 @@ class _dashboardState extends State<dashboard> {
                                 fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AllTransactionsPage(
+                                          username: username,
+                                        )),
+                              );
+                            },
                             child: Text(
                               "View All",
                               style: TextStyle(
@@ -338,47 +359,57 @@ class _dashboardState extends State<dashboard> {
                       ),
                       FutureBuilder<List<Expense>>(
                           future: getAllExpenses(username),
-                          builder: (BuildContext context, AsyncSnapshot<List<Expense>> snapshot) {
-                            if(snapshot.connectionState == ConnectionState.waiting){
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Expense>> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
                               return Center(
                                 child: CircularProgressIndicator(),
                               );
-                            }
-                            else if(snapshot.hasError){
+                            } else if (snapshot.hasError) {
                               return Center(
                                 child: Text('Error: ${snapshot.error}'),
                               );
-                            }
-                            else{
+                            } else {
                               List<Expense> expenses = snapshot.data ?? [];
                               return Expanded(
                                 child: ListView.builder(
-                                    itemCount: expenses.length<4
-                                        ?expenses.length : 4,
+                                    itemCount: expenses.length < 4
+                                        ? expenses.length
+                                        : 4,
                                     itemBuilder: (context, int i) {
                                       return Padding(
-                                        padding: const EdgeInsets.only(bottom: 16),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 16),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                              color: Color.fromARGB(75, 98, 0, 234),
-                                              borderRadius: BorderRadius.circular(12)),
+                                              color: Color.fromARGB(
+                                                  75, 98, 0, 234),
+                                              borderRadius:
+                                                  BorderRadius.circular(12)),
                                           child: Padding(
                                             padding: const EdgeInsets.all(16.0),
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .spaceBetween,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Row(
                                                   children: [
                                                     Stack(
-                                                      alignment: Alignment.center,
+                                                      alignment:
+                                                          Alignment.center,
                                                       children: [
                                                         Container(
                                                           width: 50,
                                                           height: 50,
                                                           decoration: BoxDecoration(
-                                                              color: Color(expenses[i].category.color),
-                                                              shape: BoxShape.circle),
+                                                              color: Color(
+                                                                  expenses[i]
+                                                                      .category
+                                                                      .color),
+                                                              shape: BoxShape
+                                                                  .circle),
                                                         ),
                                                         Image.asset(
                                                           'assets/images/${expenses[i].category.icon}.png',
@@ -395,27 +426,33 @@ class _dashboardState extends State<dashboard> {
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           color: Colors.white,
-                                                          fontWeight: FontWeight.w500),
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ],
                                                 ),
                                                 Column(
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
                                                   children: [
                                                     Text(
                                                       "\$${expenses[i].amount}.00",
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           color: Colors.white,
-                                                          fontWeight: FontWeight.w500),
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                     Text(
-                                                      DateFormat('dd MMMM yyyy, hh:mm a').format(expenses[i].date),
+                                                      DateFormat(
+                                                              'dd MMMM yyyy, hh:mm a')
+                                                          .format(
+                                                              expenses[i].date),
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           color: Colors.grey,
-                                                          fontWeight: FontWeight.w500),
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ],
                                                 )
@@ -427,15 +464,13 @@ class _dashboardState extends State<dashboard> {
                                     }),
                               );
                             }
-                          }
-                      ),
+                          }),
                     ],
                   ),
                 ),
               ),
             );
           }
-        }
-    );
+        });
   }
 }
