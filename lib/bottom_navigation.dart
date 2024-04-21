@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montrack_app/Profile.dart' as Profile;
+import 'package:montrack_app/Stocks.dart';
 import 'package:montrack_app/addexpense/expense_methods.dart';
 import 'package:montrack_app/dashboard.dart';
 import 'package:montrack_app/stats/charts.dart';
@@ -11,23 +12,21 @@ import 'addexpense/bloc/get_category_bloc/get_categories_bloc.dart';
 import 'package:expense_repo/expense_repository.dart';
 import 'bloc/get_expenses_bloc/get_expense_bloc.dart';
 
-
-
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
   @override
   State<Bottom> createState() => _BottomState();
 }
 
-class _BottomState extends State<Bottom>{
+class _BottomState extends State<Bottom> {
   int index_color = 0;
   List Screen = [
     const dashboard(),
     const StatsPage(),
     BlocProvider(
-        create: (context) =>GetExpensesBloc(FirebaseExpenseRepo())..add(GetExpenses()),
-        child: const dashboard()
-    ),
+        create: (context) =>
+            GetExpensesBloc(FirebaseExpenseRepo())..add(GetExpenses()),
+        child: const dashboard()),
     const Profile.Profile(),
   ];
   @override
@@ -35,21 +34,25 @@ class _BottomState extends State<Bottom>{
     return Scaffold(
       body: Screen[index_color],
       floatingActionButton: FloatingActionButton(
-        onPressed: () async{
+        onPressed: () async {
           String? username = await getCurrentUsername();
           Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (BuildContext context)=> MultiBlocProvider(
+              builder: (BuildContext context) => MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (context) => CreateCategoryBloc(FirebaseExpenseRepo()),
+                    create: (context) =>
+                        CreateCategoryBloc(FirebaseExpenseRepo()),
                   ),
                   BlocProvider(
-                    create: (context) => GetCategoriesBloc(FirebaseExpenseRepo())..add(GetCategories()),
+                    create: (context) =>
+                        GetCategoriesBloc(FirebaseExpenseRepo())
+                          ..add(GetCategories()),
                   ),
                   BlocProvider(
-                    create: (context) => CreateExpenseBloc(FirebaseExpenseRepo()),
+                    create: (context) =>
+                        CreateExpenseBloc(FirebaseExpenseRepo()),
                   ),
                 ],
                 child: AddExpense(username!),
@@ -66,7 +69,7 @@ class _BottomState extends State<Bottom>{
           color: Color.fromARGB(255, 0, 9, 80),
           shape: const CircularNotchedRectangle(),
           child: Padding(
-            padding: const EdgeInsets.only(top:7.5, bottom: 7.5),
+            padding: const EdgeInsets.only(top: 7.5, bottom: 7.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -77,13 +80,13 @@ class _BottomState extends State<Bottom>{
                 buildIconButton(Icons.person_outline, 3),
               ],
             ),
-          )
-      ),
+          )),
     );
   }
-  IconButton buildIconButton(IconData icon, int index){
+
+  IconButton buildIconButton(IconData icon, int index) {
     return IconButton(
-      onPressed: (){
+      onPressed: () {
         setState(() {
           index_color = index;
         });
@@ -91,7 +94,9 @@ class _BottomState extends State<Bottom>{
       icon: Icon(
         icon,
         size: 30,
-        color: index_color == index ? Color.fromARGB(255, 178, 89, 252) : Colors.grey,
+        color: index_color == index
+            ? Color.fromARGB(255, 178, 89, 252)
+            : Colors.grey,
       ),
     );
   }

@@ -49,6 +49,7 @@ dependencies:
   syncfusion_flutter_charts: ^25.1.37
   flutter_lints: ^3.0.2
   flutter_colorpicker: ^1.0.3
+  http: ^0.13.3
 
   expense_repo:
     path: packages\expense_repo
