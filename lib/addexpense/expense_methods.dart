@@ -88,6 +88,7 @@ Future<List<Expense>> getAllExpenses() async {
         .orderBy('date', descending: true).get();
     return querySnapshot.docs.map((doc) {
       return Expense(
+        username: doc['username'],
         expenseId: doc['expenseId'],
         category: Category.fromEntity(CategoryEntity.fromDocument(doc['category'])),
         date: (doc['date'] as Timestamp).toDate(),
@@ -97,6 +98,33 @@ Future<List<Expense>> getAllExpenses() async {
     }).toList();
   } catch (e) {
     print('Error getting expenses: $e');
+    rethrow;
+  }
+}
+
+Future<int> getTotalBalance() async {
+  try {
+    var querySnapshot = await FirebaseFirestore.instance.collection('expenses')
+    // .where('userId', isEqualTo: userId)
+        .get();
+
+    int totalAmount = 0;
+    int incomeAmount = 0;
+
+    querySnapshot.docs.forEach((doc) {
+      String categoryName = doc['category']['name'];
+      int amount = doc['amount'] as int;
+
+      if (categoryName == 'Income') {
+        incomeAmount += amount;
+      } else {
+        totalAmount += amount;
+      }
+    });
+
+    return - totalAmount + incomeAmount;
+  } catch (e) {
+    print('Error getting total balance: $e');
     rethrow;
   }
 }

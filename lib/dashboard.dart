@@ -14,32 +14,7 @@ class dashboard extends StatefulWidget {
   @override
   State<dashboard> createState() => _dashboardState();
 }
-Future<int> getTotalBalance() async {
-  try {
-    var querySnapshot = await FirebaseFirestore.instance.collection('expenses')
-        // .where('userId', isEqualTo: userId)
-        .get();
 
-    int totalAmount = 0;
-    int incomeAmount = 0;
-
-    querySnapshot.docs.forEach((doc) {
-      String categoryName = doc['category']['name'];
-      int amount = doc['amount'] as int;
-
-      if (categoryName == 'Income') {
-        incomeAmount += amount;
-      } else {
-        totalAmount += amount;
-      }
-    });
-
-    return - totalAmount + incomeAmount;
-  } catch (e) {
-    print('Error getting total balance: $e');
-    rethrow;
-  }
-}
 
 class _dashboardState extends State<dashboard> {
   @override
@@ -364,7 +339,8 @@ class _dashboardState extends State<dashboard> {
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: 4,
+                          itemCount: expenses.length<4
+                          ?expenses.length : 4,
                           itemBuilder: (context, int i) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),

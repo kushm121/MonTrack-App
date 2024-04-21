@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:montrack_app/addexpense/expense_methods.dart';
 import 'package:montrack_app/dashboard.dart';
 import 'package:montrack_app/stats/charts.dart';
 import 'addexpense/addexpense.dart';
@@ -7,8 +8,8 @@ import 'addexpense/bloc/create_categorybloc/create_category_bloc.dart';
 import 'addexpense/bloc/create_expense_bloc/create_expense_bloc.dart';
 import 'addexpense/bloc/get_category_bloc/get_categories_bloc.dart';
 import 'package:expense_repo/expense_repository.dart';
-
 import 'bloc/get_expenses_bloc/get_expense_bloc.dart';
+
 
 
 class Bottom extends StatefulWidget {
@@ -33,7 +34,8 @@ class _BottomState extends State<Bottom>{
     return Scaffold(
       body: Screen[index_color],
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () async{
+          String? username = await getCurrentUsername();
           Navigator.push(
             context,
             MaterialPageRoute<void>(
@@ -49,18 +51,18 @@ class _BottomState extends State<Bottom>{
                     create: (context) => CreateExpenseBloc(FirebaseExpenseRepo()),
                   ),
                 ],
-                child: const AddExpense(),
+                child: AddExpense(username!),
               ),
             ),
           );
         },
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 178, 89, 252),
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-          color: Colors.black,
+          color: Color.fromARGB(255, 0, 9, 80),
           shape: const CircularNotchedRectangle(),
           child: Padding(
             padding: const EdgeInsets.only(top:7.5, bottom: 7.5),
@@ -88,7 +90,7 @@ class _BottomState extends State<Bottom>{
       icon: Icon(
         icon,
         size: 30,
-        color: index_color == index ? Colors.blue : Colors.grey,
+        color: index_color == index ? Color.fromARGB(255, 178, 89, 252) : Colors.grey,
       ),
     );
   }
