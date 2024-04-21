@@ -36,10 +36,10 @@ Future<String?> getCurrentUsername() async {
 }
 
 
-Future<int> getTotalAmountInCategory(String categoryName) async {
+Future<int> getTotalAmountInCategory(String categoryName,String username) async {
   try {
     var querySnapshot = await FirebaseFirestore.instance.collection('expenses')
-    // .where('userId', isEqualTo: userId)
+        .where('username', isEqualTo: username)
         .where('category.name', isEqualTo: categoryName)
         .get();
 
@@ -57,9 +57,10 @@ Future<int> getTotalAmountInCategory(String categoryName) async {
 }
 
 
-Future<int> getTotalAmountExceptIncome() async {
+Future<int> getTotalAmountExceptIncome(String username) async {
   try {
     var querySnapshot = await FirebaseFirestore.instance.collection('expenses')
+        .where('username', isEqualTo: username)
     // .where('userId', isEqualTo: userId)
         .get();
 
@@ -82,9 +83,10 @@ Future<int> getTotalAmountExceptIncome() async {
 }
 
 
-Future<List<Expense>> getAllExpenses() async {
+Future<List<Expense>> getAllExpenses(String username) async {
   try {
     var querySnapshot = await FirebaseFirestore.instance.collection('expenses')
+        .where('username', isEqualTo: username)
         .orderBy('date', descending: true).get();
     return querySnapshot.docs.map((doc) {
       return Expense(
@@ -102,10 +104,10 @@ Future<List<Expense>> getAllExpenses() async {
   }
 }
 
-Future<int> getTotalBalance() async {
+Future<int> getTotalBalance(String username) async {
   try {
     var querySnapshot = await FirebaseFirestore.instance.collection('expenses')
-    // .where('userId', isEqualTo: userId)
+        .where('username', isEqualTo: username)
         .get();
 
     int totalAmount = 0;

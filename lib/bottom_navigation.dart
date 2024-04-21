@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:montrack_app/Profile.dart' as Profile;
 import 'package:montrack_app/addexpense/expense_methods.dart';
 import 'package:montrack_app/dashboard.dart';
 import 'package:montrack_app/stats/charts.dart';
@@ -27,7 +28,7 @@ class _BottomState extends State<Bottom>{
         create: (context) =>GetExpensesBloc(FirebaseExpenseRepo())..add(GetExpenses()),
         child: const dashboard()
     ),
-    const dashboard(),
+    const Profile.Profile(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -95,4 +96,3 @@ class _BottomState extends State<Bottom>{
     );
   }
 }
-
