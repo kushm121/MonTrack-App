@@ -1,0 +1,45 @@
+FutureBuilder<String?>(
+                              future:
+                                  getCurrentUsername(), // Fetch the username
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  // Display a loading indicator while waiting for the username
+                                  return CircularProgressIndicator();
+                                } else if (snapshot.hasError) {
+                                  // Display an error message if an error occurred
+                                  return Text('Error: ${snapshot.error}');
+                                } else {
+                                  // Display the fetched username
+                                  return Text(
+                                    snapshot.data ??
+                                        'N/A', // Display 'N/A' if username is null
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 178, 89, 252),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+
+return FutureBuilder<List<Expense>>(
+        future: getAllExpenses(username),
+        builder: (BuildContext context, AsyncSnapshot<List<Expense>> snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          else if(snapshot.hasError){
+            return Scaffold(
+              body: Center(
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            );
+          }
+          else{
+            List<Expense> expenses = snapshot.data ?? [];
