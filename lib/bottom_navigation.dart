@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montrack_app/Profile.dart' as Profile;
+import 'package:montrack_app/Stocks.dart';
 import 'package:montrack_app/addexpense/expense_methods.dart';
 import 'package:montrack_app/dashboard.dart';
 import 'package:montrack_app/stats/charts.dart';
@@ -22,12 +23,12 @@ class Bottom extends StatefulWidget {
 class _BottomState extends State<Bottom>{
   int index_color = 0;
   List Screen = [
-    const dashboard(),
-    const StatsPage(),
     BlocProvider(
         create: (context) =>GetExpensesBloc(FirebaseExpenseRepo())..add(GetExpenses()),
         child: const dashboard()
     ),
+    const StatsPage(),
+    const StocksPage(),
     const Profile.Profile(),
   ];
   @override

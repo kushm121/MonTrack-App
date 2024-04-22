@@ -1,8 +1,11 @@
 import 'dart:math';
 import 'package:expense_repo/expense_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:montrack_app/landing.dart';
+import 'AllTransactions.dart';
 import 'addexpense/expense_methods.dart';
 
 class dashboard extends StatefulWidget {
@@ -110,9 +113,11 @@ class _dashboardState extends State<dashboard> {
                             ],
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                logout(context);
+                              },
                               icon: Icon(
-                                CupertinoIcons.settings,
+                                Icons.logout_rounded,
                                 color: Colors.white,
                               )
                           )
@@ -163,7 +168,7 @@ class _dashboardState extends State<dashboard> {
                                   return Text('Error: ${snapshot.error}');
                                 } else {
                                   return Text(
-                                    '\$${snapshot.data?.toStringAsFixed(2)}',
+                                    '\₹${snapshot.data?.toStringAsFixed(2)}',
                                     style: TextStyle(
                                       fontSize: 40,
                                       color: Colors.white,
@@ -228,7 +233,7 @@ class _dashboardState extends State<dashboard> {
                                                 return Text('Error: ${snapshot.error}');
                                               } else {
                                                 return Text(
-                                                  '\$${snapshot.data?.toStringAsFixed(2)}',
+                                                  '\₹${snapshot.data?.toStringAsFixed(2)}',
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.white,
@@ -238,13 +243,6 @@ class _dashboardState extends State<dashboard> {
                                               }
                                             },
                                           ),
-                                          // Text(
-                                          //   "2300.00",
-                                          //   style: TextStyle(
-                                          //       fontSize: 16,
-                                          //       color: Colors.white,
-                                          //       fontWeight: FontWeight.w600),
-                                          // ),
                                         ],
                                       )
                                     ],
@@ -261,7 +259,7 @@ class _dashboardState extends State<dashboard> {
                                           child: Icon(
                                             CupertinoIcons.arrow_up,
                                             size: 12,
-                                            color: Colors.greenAccent,
+                                            color: Colors.redAccent,
                                           ),
                                         ),
                                       ),
@@ -288,7 +286,7 @@ class _dashboardState extends State<dashboard> {
                                                 return Text('Error: ${snapshot.error}');
                                               } else {
                                                 return Text(
-                                                  '\$${snapshot.data?.toStringAsFixed(2)}',
+                                                  '\₹${snapshot.data?.toStringAsFixed(2)}',
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.white,
@@ -322,7 +320,15 @@ class _dashboardState extends State<dashboard> {
                                 fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AllTransactionsPage(
+                                      username: username,
+                                    )),
+                              );
+                            },
                             child: Text(
                               "View All",
                               style: TextStyle(
@@ -404,7 +410,7 @@ class _dashboardState extends State<dashboard> {
                                                       .end,
                                                   children: [
                                                     Text(
-                                                      "\$${expenses[i].amount}.00",
+                                                      "\₹${expenses[i].amount}.00",
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           color: Colors.white,
@@ -437,5 +443,16 @@ class _dashboardState extends State<dashboard> {
           }
         }
     );
+  }
+  void logout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LandingPage()), // Navigate back to the login screen
+      );
+    } catch (e) {
+      print('Error logging out: $e');
+    }
   }
 }

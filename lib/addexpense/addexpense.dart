@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:expense_repo/expense_repository.dart';
 import 'package:uuid/uuid.dart';
@@ -36,7 +37,10 @@ class _AddExpenseState extends State<AddExpense> {
     "travel",
     "income"
   ];
-
+  bool isPositiveInteger(String input) {
+    final number = int.tryParse(input);
+    return number != null && number > 0;
+  }
 
   @override
    void initState() {
@@ -118,7 +122,7 @@ class _AddExpenseState extends State<AddExpense> {
                                       filled: true,
                                       fillColor: Colors.transparent,
                                       prefixIcon: Icon(
-                                        CupertinoIcons.money_dollar,
+                                        Icons.currency_rupee,
                                         size: 30,
                                         color: Colors.white,
                                       ),
@@ -254,14 +258,12 @@ class _AddExpenseState extends State<AddExpense> {
                                   DateTime? newDate = await showDatePicker(
                                       context: context,
                                       initialDate: expense.date,
-                                      firstDate: DateTime.now(),
+                                      firstDate: DateTime(2000),
                                       lastDate: DateTime.now().add(const Duration(days: 365))
                                   );
                                   if (newDate != null) {
                                     setState(() {
-                                      dateController.text =
-                                          DateFormat('dd/MM/yyyy').format(newDate);
-                                      // selectDate = newDate;
+                                      dateController.text = DateFormat('dd/MM/yyyy').format(newDate);
                                       expense.date = newDate;
                                     });
                                   }
@@ -312,12 +314,19 @@ class _AddExpenseState extends State<AddExpense> {
                                   ),
                                   child: TextButton(
                                       onPressed: () {
-                                        setState(() {
-                                          expense.username = widget.username!;
-                                          expense.amount = int.parse(expenseController.text);
-                                          expense.Desc = DescController.text;
-                                        });
-                                        context.read<CreateExpenseBloc>().add(CreateExpense(expense));
+                                        if(isPositiveInteger(expenseController.text)) {
+                                          setState(() {
+                                            expense.username = widget.username!;
+                                            expense.amount = int.parse(
+                                                expenseController.text);
+                                            expense.Desc = DescController.text;
+                                          });
+                                          context.read<CreateExpenseBloc>().add(
+                                              CreateExpense(expense));
+                                        }else{
+                                          Fluttertoast.showToast(
+                                              msg: 'Expense should be a positive Number');
+                                        }
                                       },
                                       style: TextButton.styleFrom(
                                         padding: EdgeInsets.zero,

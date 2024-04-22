@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:montrack_app/dashboard.dart';
-import 'bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_alt/modal_progress_hud_alt.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'data/data.dart';
 import 'dart:ui';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<String?> getCurrentUsername() async {

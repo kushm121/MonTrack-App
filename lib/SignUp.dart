@@ -29,6 +29,11 @@ class _SignUpState extends State<SignUp> {
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
+  bool isValidEmail(String email) {
+    // Regular expression for email validation
+    final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    return emailRegex.hasMatch(email);
+  }
   @override
   void initState() {
     super.initState();
@@ -339,6 +344,24 @@ class _SignUpState extends State<SignUp> {
   }
 
   void signUp(String email, String password, String username) async {
+    final RegExp emailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    final RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9_]+[a-zA-Z0-9_]*$');
+    final RegExp phoneRegex = RegExp(r'^[0-9]+$');
+    final RegExp passwordRegex = RegExp(r'^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$');
+    if (!usernameRegex.hasMatch(username) || username.length < 3) {
+      Fluttertoast.showToast(msg: 'Username should be at least 3 characters and contain only letters, numbers, and underscores.');
+      return;
+    }
+
+    if (!emailRegex.hasMatch(email)) {
+      Fluttertoast.showToast(msg: 'Please enter a valid email address.');
+      return;
+    }
+    if (!passwordRegex.hasMatch(password) || password.length < 6) {
+      Fluttertoast.showToast(msg: 'Password should be at least 6 characters and contain at least 1 letter and 1 digit.');
+      return;
+    }
+
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);

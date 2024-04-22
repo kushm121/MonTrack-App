@@ -40,6 +40,11 @@ class _LoginState extends State<Login> {
     _passwordController.dispose();
     super.dispose();
   }
+  bool isValidEmail(String email) {
+    // Regular expression for email validation
+    final RegExp emailRegex = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    return emailRegex.hasMatch(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -187,14 +192,12 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                         child: ElevatedButton(
-                          onPressed: () async {
+                          onPressed: isValidEmail(email) ? () async {
                             setState(() {
                               showSpinner = true;
                             });
-
                             try {
-                              final user =
-                                  await _auth.signInWithEmailAndPassword(
+                              final user = await _auth.signInWithEmailAndPassword(
                                       email: email, password: password);
                               Navigator.push(
                                 context,
@@ -242,6 +245,12 @@ class _LoginState extends State<Login> {
                               showSpinner = false;
                             });
                             errorMessage = '';
+                          }:() {
+                            Fluttertoast.showToast(
+                              msg: 'Please enter a valid email',
+                              backgroundColor: Colors.transparent,
+                              textColor: Colors.white,
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
